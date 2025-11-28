@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlueSky Realty Partners</title>
+    <style>
+        /* RESET */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        /* BODY */
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #022a5d;
+            color: #333;
+        }
+        /* HEADER */
+        
+        .header {
+            background: 00416A;
+            color: skyblue;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        .header ul {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .img {
+            width: 10%;
+            border-radius: 12px;
+        }
+        
+        .nav a {
+            color: skyblue;
+        }
+        
+        .nav a:hover {
+            color: #3E8EDE;
+        }
+        /* HERO */
+        
+        .hero {
+            height: 60vh;
+            background: url("https://images.unsplash.com/photo-1572120360610-d971b9d7767c") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        /* FILTERS */
+        
+        .filters {
+            background: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .filters input,
+        .filters button {
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        
+        .filters button {
+            background: #1b4dd8;
+            color: white;
+            cursor: pointer;
+        }
+        /* PROPERTY GRID */
+        
+        .property-section {
+            padding: 40px;
+        }
+        
+        .property-section h2 {
+            color: skyblue;
+            margin-bottom: 20px;
+        }
+        
+        .property-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .property-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: 0.3s ease;
+        }
+        
+        .property-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 12px #26619C;
+        }
+        
+        .property-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+        
+        .property-card .info {
+            padding: 15px;
+        }
+        
+        .property-card h3 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .property-card p {
+            margin: 4px 0;
+        }
+        
+        .price {
+            font-size: 18px;
+            color: green;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+        /* FOOTER */
+        
+        footer {
+            padding: 20px;
+            background: #1b4dd8;
+            text-align: center;
+            color: skyblue;
+            margin-top: 40px;
+            background: transparent;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo"><img src="logo.jpg" alt="logo" class="img">BlueSky Realty Partners</div>
+        <nav>
+            <ul class="nav">
+                <a href="index.html">Home</a>
+                <a href="properties.html">Properties</a>
+                <a href="agent.html">Agents</a>
+                <a href="contact.html">Contact</a>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section id="home" class="hero">
+        <h1>Discover Your Perfect Home</h1>
+        <p>Explore premium properties around you</p>
+    </section>
+
+    <!-- FILTER BAR -->
+    <section class="filters">
+        <input type="number" id="bedFilter" placeholder="Min Beds">
+        <input type="number" id="maxPrice" placeholder="Max Price">
+        <button id="applyFilters">Apply Filters</button>
+    </section>
+
+    <!-- PROPERTY LISTING -->
+    <section id="properties" class="property-section">
+        <h2>Available Properties</h2>
+        <div id="propertyList" class="property-grid"></div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 BlueSky Realty Partners• All Rights Reserved</p>
+    </footer>
+
+    <script>
+        const properties = [{
+            title: "Modern Apartment",
+            price: 120000,
+            beds: 2,
+            img: "https://i.pinimg.com/736x/5c/c0/86/5cc0868365ef2bd241b4499d8563b71c.jpg",
+            location: "Philadelphia"
+        }, {
+            title: "Skyline Residency",
+            price: 250000,
+            beds: 2,
+            img: "https://i.pinimg.com/736x/55/52/65/555265ba9ed69b5ece9431969250aa0c.jpg",
+            location: "New York City"
+        }, {
+            title: "Royal Crest Villa",
+            price: 350000,
+            beds: 2,
+            img: "https://i.pinimg.com/1200x/34/b0/c4/34b0c445dc8129aa0f7b874b07009053.jpg",
+            location: "Dallas"
+        }, {
+            title: "Palmview Mansion",
+            price: 150000,
+            beds: 2,
+            img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+            location: "New York City"
+        }];
+
+        const propertyList = document.getElementById("propertyList");
+
+        // Display properties
+        function loadProperties(list) {
+            propertyList.innerHTML = "";
+            list.forEach(p => {
+                propertyList.innerHTML += `
+            <div class="property-card">
+                <img src="${p.img}" alt="${p.title}">
+                <div class="info">
+                    <h3>${p.title}</h3>
+                    <div class="price"> $${p.price}</div>
+                    <div class="info">${p.beds} Beds • ${p.location}</div>
+                </div>
+            </div>
+        `;
+            });
+        }
+
+        loadProperties(properties);
+
+        // Filter Logic
+        document.getElementById("applyFilters").addEventListener("click", () => {
+            const bedValue = Number(document.getElementById("bedFilter").value);
+            const priceValue = Number(document.getElementById("maxPrice").value);
+
+            const result = properties.filter(p =>
+                (!bedValue || p.beds >= bedValue) &&
+                (!priceValue || p.price <= priceValue)
+            );
+
+            loadProperties(result);
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agents | BlueSky Realty Partners</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #022a5d;
+        }
+        
+        .header {
+            color: skyblue;
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: transparent;
+        }
+        
+        .header ul {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .header a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .img {
+            width: 10%;
+            border-radius: 12px;
+        }
+        
+        .intro {
+            background: #1e1e1e;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        
+        .nav a {
+            color: skyblue;
+        }
+        
+        .nav a:hover {
+            color: #3E8EDE;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 30px auto;
+        }
+        /* AGENT GRID */
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+            transition: 0.2s;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        
+        .card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 12px #26619C;
+        }
+        
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .card h3 {
+            margin: 15px 0 5px;
+        }
+        
+        .role {
+            color: #777;
+            font-size: 14px;
+        }
+        
+        .contact-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: #0078ff;
+            border: none;
+            color: #fff;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .contact-btn:hover {
+            background: #0060cc;
+        }
+        /* POPUP */
+        
+        .popup-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .popup-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+        
+        .popup-box button {
+            margin-top: 15px;
+            padding: 8px 18px;
+            background: #1e1e1e;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: skyblue;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="logo"><img src="logo.jpg" alt="logo" class="img">BlueSky Realty Partners</div>
+        <nav>
+            <ul class="nav">
+                <a href="index.html">Home</a>
+                <a href="properties.html">Properties</a>
+                <a href="agent.html">Agents</a>
+                <a href="contact.html">Contact</a>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="intro">Meet Our Agents</div>
+
+    <div class="container">
+        <div id="agentGrid" class="grid"></div>
+    </div>
+
+    <!-- POPUP -->
+    <div id="popup" class="popup-bg">
+        <div class="popup-box">
+            <h2 id="popupName"></h2>
+            <p id="popupEmail"></p>
+            <p id="popupPhone"></p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 BlueSky Realty Partners • All Rights Reserved</p>
+    </footer>
+    <script>
+        const agents = [{
+            name: "Jason Brooks",
+            role: "Senior Agent",
+            img: "https://i.pinimg.com/736x/4c/94/6b/4c946bf35a78efc20d836bd550259f29.jpg",
+            phone: "+1 (512) 555-3021",
+            email: "jason.brooks.home@gmail.com"
+        }, {
+            name: "Michael Johnson",
+            role: "Senior Agent",
+            img: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6",
+            phone: "+1 (312) 555-7429",
+            email: "michael.johnson.us@gmail.com"
+        }, {
+            name: "Emily Carter",
+            role: "Luxury Property Expert",
+            img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+            phone: "+1 (646) 555-1834",
+            email: "emily.carter.realty@gmail.com"
+        }, {
+            name: "Daniel Walker",
+            role: "Rental Specialist",
+            img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+            phone: "+1 (415) 555-9261",
+            email: "daniel.walker.agent@gmail.com"
+        }, {
+            name: "Sarah Mitchell",
+            role: "Commercial Property Agent",
+            img: "https://i.pinimg.com/736x/cc/e7/8b/cce78bb4139400695fa5178d2d408b7d.jpg",
+            phone: "+1 (702) 555-4418",
+            email: "sarah.mitchell.usa@gmail.com"
+        }];
+
+        function loadAgents() {
+            const grid = document.getElementById("agentGrid");
+
+            agents.forEach(agent => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                <img src="${agent.img}" alt="${agent.name}" />
+                <h3>${agent.name}</h3>
+                <div class="role">${agent.role}</div>
+                <button class="contact-btn" onclick="openPopup('${agent.name}', '${agent.email}', '${agent.phone}')">Contact</button>
+            `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openPopup(name, email, phone) {
+            document.getElementById("popupName").innerText = name;
+            document.getElementById("popupEmail").innerText = "Email: " + email;
+            document.getElementById("popupPhone").innerText = "Phone: " + phone;
+            document.getElementById("popup").style.display = "flex";
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        loadAgents();
+    </script>
+
+</body>
+
+</html>
